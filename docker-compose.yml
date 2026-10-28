@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  veroplc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: veroplc-engine
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=VeroPLC
+      - APP_ENV=production
+      - DEBUG=false
+      - PORT=8000
+      - MAX_UNROLL_CYCLES=30
+      - SOLVER_TIMEOUT_MS=10000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

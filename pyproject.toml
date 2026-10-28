@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "veroplc"
+version = "1.0.0"
+description = "Automated Bounded SMT Model Checking and Scan-Cycle Invariant Verifier for Brownfield IEC 61131-3 Industrial Control Systems"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "pydantic>=2.6.4",
+    "pydantic-settings>=2.2.1",
+    "z3-solver>=4.13.0.0",
+    "lark>=1.1.9",
+    "python-multipart>=0.0.9"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

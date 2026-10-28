@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeroPLC | Bounded SMT Model Checker for IEC 61131-3</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Industrial Navigation Header -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-icon">V</div>
+      <div>
+        <div class="logo-title">VeroPLC</div>
+        <div style="font-size: 0.7rem; color: var(--text-muted);">IEC 61131-3 Bounded SMT Invariant Verifier</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <span class="badge badge-cyan">Z3 SMT Core v4.13.0</span>
+      <span class="badge badge-green">Deterministic Air-Gapped Mode</span>
+    </div>
+  </header>
+
+  <!-- Dual Workspace Container -->
+  <div class="app-container">
+
+    <!-- Left Workspace: Structured Text Logic Editor -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Industrial Logic Editor (IEC 61131-3 ST)</span>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="file" id="xml-file-upload" accept=".xml,.st" style="display: none;" />
+          <button class="btn btn-secondary" onclick="document.getElementById('xml-file-upload').click()">
+            Upload PLCopen XML
+          </button>
+        </div>
+      </div>
+
+      <div class="editor-controls">
+        <label style="font-size: 0.8rem; color: var(--text-muted);">Benchmark:</label>
+        <select id="benchmark-select" class="select-custom" style="flex: 1;"></select>
+        <button id="patch-btn" class="btn btn-patch" title="Apply safety interlock remediation patch">
+          Apply Interlock Patch
+        </button>
+      </div>
+
+      <textarea id="st-code-editor" class="code-area" spellcheck="false"></textarea>
+    </div>
+
+    <!-- Right Workspace: Invariants, Z3 Controls & Counterexample Waveforms -->
+    <div class="panel right-split">
+
+      <!-- Invariant Configuration -->
+      <div class="config-box">
+        <div class="panel-title">Formal Safety Invariant Specification</div>
+        <input type="text" id="invariant-rule" class="input-custom" style="width: 100%; font-family: var(--font-mono);"
+               value="NEVER: Ram_Cylinder_Extend == TRUE AND Loader_In_Die_Envelope == TRUE" />
+
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <label style="font-size: 0.8rem; color: var(--text-muted);">Scan Bound (k):</label>
+          <input type="number" id="unroll-cycles" class="input-custom" value="10" min="1" max="30" style="width: 70px;" />
+
+          <button id="verify-btn" class="btn btn-primary" style="flex: 1;">
+            Run Bounded Verification (Z3)
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Execution Output & Formal Proof Banner -->
+      <div style="padding: 0 1rem;">
+        <div id="results-card"></div>
+        <div id="metrics-grid" class="metrics-grid"></div>
+      </div>
+
+      <!-- Interactive Digital Waveform Timeline -->
+      <div style="padding: 1rem; flex: 1; display: flex; flex-direction: column;">
+        <div class="panel-title" style="margin-bottom: 0.5rem;">
+          Multi-Channel Discrete Scan Waveform (Counterexample Trace)
+        </div>
+        <div id="waveform-viewport" class="waveform-container" style="flex: 1;"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

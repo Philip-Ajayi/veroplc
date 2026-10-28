@@ -1,0 +1,42 @@
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+/* Digital Waveform Styling */
+.wave-row {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    border-bottom: 1px solid #1e293b;
+}
+.wave-label {
+    width: 180px;
+    font-size: 11px;
+    font-family: monospace;
+    color: #94a3b8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wave-track {
+    display: flex;
+    flex: 1;
+}
+.wave-cycle {
+    width: 44px;
+    height: 24px;
+    position: relative;
+    border-right: 1px dashed #1e293b;
+}
